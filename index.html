@@ -21,8 +21,8 @@
 
   <div class="card">
     <div class="tabs">
-      <button class="tab active" id="singleBtn">Einzel</button>
-      <button class="tab" id="doubleBtn">Doppel / Mixed</button>
+      <button class="tab active" id="singleBtn" type="button">Einzel</button>
+      <button class="tab" id="doubleBtn" type="button">Doppel / Mixed</button>
     </div>
 
     <div class="grid">
@@ -68,7 +68,7 @@
 
     <label class="check"><input type="checkbox" id="bonus"> Punktspiel‑Bonus +10%</label>
 
-    <button class="calc" id="calcBtn">Berechnen</button>
+    <button class="calc" id="calcBtn" type="button">Berechnen</button>
 
     <div class="result">
       <div class="big" id="result">–</div>
@@ -77,9 +77,9 @@
   </div>
 </div>
 
-<div id="hype" class="hype hidden">
+<div id="hype" class="hype hidden" role="dialog" aria-hidden="true">
   <div class="hypebox">
-    <div class="badge">MONSTER‑SIEG</div>
+    <div class="badge" id="hypeBadge">SIEG</div>
     <div class="hypeText" id="hypeText"></div>
   </div>
 </div>
