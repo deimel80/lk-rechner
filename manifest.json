@@ -2,7 +2,7 @@
   "name": "WTV / DTB LK-Rechner",
   "short_name": "LK-Rechner",
   "description": "Installierbarer LK-Rechner für WTV/DTB auf iPhone und Android.",
-  "start_url": "./?v=6",
+  "start_url": "./?v=7",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
