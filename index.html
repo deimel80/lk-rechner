@@ -1,89 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>LK-Rechner</title>
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
-<meta name="theme-color" content="#07111f">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="LK-Rechner">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>WTV / DTB LK-Rechner</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-  <div class="hero">
-    <div>
-      <div class="mini">WTV / DTB</div>
-      <h1>LK‑Rechner</h1>
-      <p>Einzel, Doppel/Mixed, Altersklassen, Punktspiel‑Bonus und Kurzsatz‑Faktor.</p>
-    </div>
-    <div class="ball">LK</div>
+  <div class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">WTV / DTB</p>
+        <h1>LK-Rechner</h1>
+        <p class="lead">Einzel, Doppel/Mixed, Altersklassen, Punktspiel-Bonus und Kurzsatz-Faktor.</p>
+      </div>
+      <div class="ball" aria-hidden="true">LK</div>
+    </header>
+
+    <main>
+      <section class="card">
+        <div class="tabs">
+          <button id="tab-single" class="tab active" type="button">Einzel</button>
+          <button id="tab-double" class="tab" type="button">Doppel / Mixed</button>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            <span>Meine LK / Begleitwert</span>
+            <input id="myLk" inputmode="decimal" type="number" min="1.5" max="25" step="0.001" value="9.200">
+          </label>
+
+          <label id="partnerWrap" class="hidden">
+            <span>Partner-LK</span>
+            <input id="partnerLk" inputmode="decimal" type="number" min="1.5" max="25" step="0.001" value="18.294">
+          </label>
+
+          <label>
+            <span id="opp1Label">Gegner-LK</span>
+            <input id="opp1Lk" inputmode="decimal" type="number" min="1" max="25" step="0.001" value="6.600">
+          </label>
+
+          <label id="opp2Wrap" class="hidden">
+            <span>Gegner 2 LK</span>
+            <input id="opp2Lk" inputmode="decimal" type="number" min="1" max="25" step="0.001" value="10.600">
+          </label>
+
+          <label>
+            <span>Altersklasse</span>
+            <select id="ageClass">
+              <option value="10">U10 / 10</option>
+              <option value="11">U11 / 11</option>
+              <option value="12">U12 / 12</option>
+              <option value="13">U13 / 13</option>
+              <option value="14">U14 / 14</option>
+              <option value="15">U15 / 15</option>
+              <option value="16">U16 / 16</option>
+              <option value="17">U17 / 17</option>
+              <option value="18">U18 / 18</option>
+              <option value="21">U21 / 21</option>
+              <option value="open">Offene Klasse</option>
+              <option value="30" selected>Ü30</option>
+              <option value="35">Ü35</option>
+              <option value="40">Ü40</option>
+              <option value="45">Ü45</option>
+              <option value="50">Ü50</option>
+              <option value="55">Ü55</option>
+              <option value="60">Ü60</option>
+              <option value="65">Ü65</option>
+              <option value="70">Ü70</option>
+              <option value="75">Ü75</option>
+              <option value="80">Ü80</option>
+              <option value="85">Ü85</option>
+              <option value="90">Ü90</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Geschlecht bei Jugend</span>
+            <select id="gender">
+              <option value="m">männlich</option>
+              <option value="w">weiblich</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Zählweise</span>
+            <select id="scoring">
+              <option value="1">normal / Match-Tie-Break</option>
+              <option value="0.75">Kurzsätze bis 4</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="switches">
+          <label class="switch">
+            <input id="teamMatch" type="checkbox" checked>
+            <span>Punktspiel-Bonus +10%</span>
+          </label>
+          <label class="switch">
+            <input id="weeklySurcharge" type="checkbox">
+            <span>wöchentlichen Aufschlag +0,025 einrechnen</span>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button id="calcBtn" type="button" class="primary">Berechnen</button>
+          <button id="saveBtn" type="button" class="secondary">Ergebnis speichern</button>
+          <button id="resetBtn" type="button" class="ghost">Zurücksetzen</button>
+        </div>
+      </section>
+
+      <section class="result-card">
+        <div class="result-main">
+          <div>
+            <span>Neue LK</span>
+            <strong id="newLk">–</strong>
+          </div>
+          <div>
+            <span>Begleitwert</span>
+            <strong id="newCompanion">–</strong>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div><span>Verbesserung</span><b id="improvement">–</b></div>
+          <div><span>Punkte P</span><b id="points">–</b></div>
+          <div id="partnerResultWrap" class="hidden"><span>Partner neue LK</span><b id="partnerResult">–</b></div>
+        </div>
+
+        <details open>
+          <summary>Rechenweg anzeigen</summary>
+          <pre id="calcLines">Noch keine Berechnung.</pre>
+        </details>
+      </section>
+
+      <section class="card">
+        <div class="row-title">
+          <h2>Gespeicherte Ergebnisse</h2>
+          <button id="clearHistoryBtn" type="button" class="ghost small">löschen</button>
+        </div>
+        <div id="history" class="history empty">Noch keine gespeicherten Ergebnisse.</div>
+      </section>
+    </main>
   </div>
 
-  <div class="card">
-    <div class="tabs">
-      <button class="tab active" id="singleBtn" type="button">Einzel</button>
-      <button class="tab" id="doubleBtn" type="button">Doppel / Mixed</button>
-    </div>
-
-    <div class="grid">
-      <div>
-        <label>Meine LK / Begleitwert</label>
-        <input id="myLk" type="number" step="0.001" value="9.2">
-      </div>
-
-      <div id="partnerWrap" class="hidden">
-        <label>Partner‑LK</label>
-        <input id="partnerLk" type="number" step="0.001" value="10.5">
-      </div>
-
-      <div>
-        <label>Gegner‑LK</label>
-        <input id="opp1" type="number" step="0.001" value="6.6">
-      </div>
-
-      <div id="opp2Wrap" class="hidden">
-        <label>Gegner 2 LK</label>
-        <input id="opp2" type="number" step="0.001" value="9.5">
-      </div>
-
-      <div>
-        <label>Altersklasse</label>
-        <select id="age">
-          <option>Offene Klasse</option>
-          <option>Ü30</option>
-          <option>Ü40</option>
-          <option>Ü50</option>
-          <option>Ü60</option>
-        </select>
-      </div>
-
-      <div>
-        <label>Zählweise</label>
-        <select id="scoring">
-          <option value="1">normal / MTB</option>
-          <option value="0.75">Kurzsätze bis 4</option>
-        </select>
-      </div>
-    </div>
-
-    <label class="check"><input type="checkbox" id="bonus"> Punktspiel‑Bonus +10%</label>
-
-    <button class="calc" id="calcBtn" type="button">Berechnen</button>
-
-    <div class="result">
-      <div class="big" id="result">–</div>
-      <div class="small" id="improvement">Verbesserung –</div>
+  <div id="hype" class="hype hidden" aria-hidden="true">
+    <div class="hypebox">
+      <div id="hypeBadge" class="hype-badge">SIEG</div>
+      <div id="hypeText" class="hype-text">DU BIST EINE MASCHINE.</div>
+      <button id="hypeClose" class="hype-close" type="button">weiter</button>
     </div>
   </div>
-</div>
 
-<div id="hype" class="hype hidden" role="dialog" aria-hidden="true">
-  <div class="hypebox">
-    <div class="badge" id="hypeBadge">SIEG</div>
-    <div class="hypeText" id="hypeText"></div>
-  </div>
-</div>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
